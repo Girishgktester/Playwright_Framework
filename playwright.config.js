@@ -9,15 +9,15 @@ const envConfig = require(`./configs/${ENV}.js`);
 const browserConfigs = {
   chromium: {
     name: 'Chromium',
-    use: { browserName: 'chromium', headless: false },
+    use: { browserName: 'chromium' },
   },
   firefox: {
     name: 'Firefox',
-    use: { browserName: 'firefox', headless: false },
+    use: { browserName: 'firefox' },
   },
   webkit: {
     name: 'WebKit',
-    use: { browserName: 'webkit', headless: false },
+    use: { browserName: 'webkit' },
   },
 };
 
@@ -40,7 +40,7 @@ module.exports = defineConfig({
   retries: process.env.CI ? 2 : 0, // Retry failed tests in CI environment (2 retries) or no retries locally
   use: {
     baseURL: envConfig.baseURL, // Base URL defined in your environment config
-    headless: false, // Launch browsers in headless mode for CI; can be toggled per environment
+    headless: process.env.CI ? true : false, // Headed locally, headless in CI
     screenshot: 'only-on-failure', // Capture screenshots only on test failures
     trace: 'retain-on-failure', // Retain traces only on failure to debug issues
     video: 'retry-with-video', // Record video for tests that fail on retry
