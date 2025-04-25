@@ -23,14 +23,28 @@ jobs:
       - name: Install Project Dependencies
         run: npm install
       
-      - name: Install Concurrently
+      - name: Install Global Dependencies
+        run: npm install -g concurrently cross-env
+      
+      - name: Install Local Dependencies
         run: npm install concurrently cross-env --save-dev
       
       - name: Run Smoke Tests on QA
-        run: npm run smoke:all:qa
+        run: npx cross-env ENV=qa BROWSER=chromium TAG=smoke npm run test && 
+             npx cross-env ENV=qa BROWSER=firefox TAG=smoke npm run test && 
+             npx cross-env ENV=qa BROWSER=webkit TAG=smoke npm run test
       
       - name: Run Smoke Regression Tests
-        run: npm run smoke-regression:all
+        run: |
+          # Run smoke tests first
+          npx cross-env ENV=dev BROWSER=chromium TAG=smoke npm run test
+          npx cross-env ENV=dev BROWSER=firefox TAG=smoke npm run test
+          npx cross-env ENV=dev BROWSER=webkit TAG=smoke npm run test
+          
+          # Then run regression tests
+          npx cross-env ENV=dev BROWSER=chromium TAG=regression npm run test
+          npx cross-env ENV=dev BROWSER=firefox TAG=regression npm run test
+          npx cross-env ENV=dev BROWSER=webkit TAG=regression npm run test
       
       - name: Upload Playwright Report
         if: always()
