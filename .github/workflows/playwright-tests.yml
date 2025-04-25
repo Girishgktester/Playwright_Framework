@@ -20,8 +20,11 @@ jobs:
         with:
           node-version: '18'
       
-      - name: Install Dependencies
+      - name: Install Project Dependencies
         run: npm install
+      
+      - name: Install Concurrently
+        run: npm install concurrently cross-env --save-dev
       
       - name: Run Smoke Tests on QA
         run: npm run smoke:all:qa
@@ -31,7 +34,7 @@ jobs:
       
       - name: Upload Playwright Report
         if: always()
-        uses: actions/upload-artifact@v4  # Updated from v3 to v4
+        uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: playwright-report/
