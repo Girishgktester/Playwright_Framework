@@ -9,5 +9,3 @@ test('@smoke Place order', async function ({hooks}) {
     await placeorder.placeOrderAndVerifyOrderConfrmation();
     await placeorder.verifyInoiceDownload();
 })
-
-

@@ -1,9 +1,9 @@
 const Pageutils = require('../utils/Pageutils');
 const { generateUser } = require('../Data/FakerTestData');
 const { expect } = require('@playwright/test');
+const testData = require('../Data/testData.json');
 const path = require('path');
 const fs = require('fs');
-
 
 class Placeorder {
     constructor(page) {
@@ -34,8 +34,8 @@ class Placeorder {
         const { pageutils } = this;
         await this.pageutils.expectVisible(this.singuploginBtn, "Singup/ login button displayed in hompage");
         await pageutils.click(this.singuploginBtn, "Singup / login button");
-        await pageutils.fill(this.emailAddress, "Test@Tester1.com");
-        await pageutils.fill(this.passwordInputBox, "Admin123");
+        await pageutils.fill(this.emailAddress, testData.validUserEcom.email);
+        await pageutils.fill(this.passwordInputBox, testData.validUserEcom.password);
         await pageutils.click(this.loginButton, "Login Button");
     }
 
@@ -51,16 +51,16 @@ class Placeorder {
         await pageutils.expectVisible(this.proceedToCheckoutBtn, "Proced to checkout button is displayed in Cart");
         await pageutils.click(this.proceedToCheckoutBtn, "Proced to checkout button")
         await pageutils.click(this.placeOrderBtn, "Place order button")
-
     }
 
     async makeCardPayment() {
         const { pageutils } = this;
-        await pageutils.fill(this.nameOnThecardTxt, "Test user");
-        await pageutils.fill(this.cardNumber, "123456789");
-        await pageutils.fill(this.month, "0112");
-        await pageutils.fill(this.year, "2025");
-        await pageutils.fill(this.cvv, "123");
+        const user = generateUser();
+        await pageutils.fill(this.nameOnThecardTxt, user.name);
+        await pageutils.fill(this.cardNumber, user.cardNumber);
+        await pageutils.fill(this.month, user.month);
+        await pageutils.fill(this.year, user.year);
+        await pageutils.fill(this.cvv, user.cvv);
     }
 
     async placeOrderAndVerifyOrderConfrmation() {
@@ -83,7 +83,7 @@ class Placeorder {
             content = fs.readFileSync(filePath, 'utf-8');
             console.log("File content:\n", content);
         }
-        expect(content).toMatch("Hi Test User, Your total purchase amount is 500. Thank you");
+        expect(content).toMatch("Hi " + testData.validUserEcom.email + " " + testData.validUserEcom.email + ", Your total purchase amount is 500. Thank you");
         return { success, filePath, content };
     }
 }

@@ -1,16 +1,17 @@
 {
-    "validUser": {
-      "email": "Testuser@gmail.com",
-      "password": "Test@123"
-    },
-    "invalidUser": {
-      "email": "wronguser@example.com",
-      "password": "wrongpass"
-    },
-
-    "SearchData":{
-      "productSearch":"Build your own computer"
-    }
-
+  "validUser": {
+    "email": "Testuser@gmail.com",
+    "password": "Test@123"
+  },
+  "validUserEcom": {
+    "email": "Testusers@gmail.in",
+    "password": "admin123"
+  },
+  "invalidUser": {
+    "email": "wronguser@example.com",
+    "password": "wrongpass"
+  },
+  "SearchData": {
+    "productSearch": "Build your own computer"
   }
-  
+}
