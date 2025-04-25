@@ -62,7 +62,9 @@ To run tests in different environments with different browsers, you can use the 
   npm run regression --browser <browser-name> --env <env-name>  
   # Example: npm run regression --browser firefox --env dev
 
-
+ dev en uses this website https://automationexercise.com/
+ qa uses https://demo.nopcommerce.com'
+ unfortunately both are not stable but i wanted to use ecomm.
 Where:
 - `<browser-name>` can be `chrome`, `firefox`, or `webkit`.
 - `<env-name>` can be `dev`, `qa`, or `stage`.
