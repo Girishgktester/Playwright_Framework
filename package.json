@@ -1,0 +1,45 @@
+{
+  "name": "playwright_framework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test-runner.js",
+    "smoke:chromium:dev": "cross-env ENV=dev BROWSER=chromium TAG=smoke npm run test",
+    "smoke:chromium:qa": "cross-env ENV=qa BROWSER=chromium TAG=smoke npm run test",
+    "smoke:chromium:stage": "cross-env ENV=stage BROWSER=chromium TAG=smoke npm run test",
+    "smoke:firefox:dev": "cross-env ENV=dev BROWSER=firefox TAG=smoke npm run test",
+    "smoke:firefox:qa": "cross-env ENV=qa BROWSER=firefox TAG=smoke npm run test",
+    "smoke:firefox:stage": "cross-env ENV=stage BROWSER=firefox TAG=smoke npm run test",
+    "smoke:webkit:dev": "cross-env ENV=dev BROWSER=webkit TAG=smoke npm run test",
+    "smoke:webkit:qa": "cross-env ENV=qa BROWSER=webkit TAG=smoke npm run test",
+    "smoke:webkit:stage": "cross-env ENV=stage BROWSER=webkit TAG=smoke npm run test",
+    "regression:chromium:dev": "cross-env ENV=dev BROWSER=chromium TAG=regression npm run test",
+    "regression:chromium:qa": "cross-env ENV=qa BROWSER=chromium TAG=regression npm run test",
+    "regression:chromium:stage": "cross-env ENV=stage BROWSER=chromium TAG=regression npm run test",
+    "regression:firefox:dev": "cross-env ENV=dev BROWSER=firefox TAG=regression npm run test",
+    "regression:firefox:qa": "cross-env ENV=qa BROWSER=firefox TAG=regression npm run test",
+    "regression:firefox:stage": "cross-env ENV=stage BROWSER=firefox TAG=regression npm run test",
+    "regression:webkit:dev": "cross-env ENV=dev BROWSER=webkit TAG=regression npm run test",
+    "regression:webkit:qa": "cross-env ENV=qa BROWSER=webkit TAG=regression npm run test",
+    "regression:webkit:stage": "cross-env ENV=stage BROWSER=webkit TAG=regression npm run test",
+    "smoke:all": "npm run smoke:chromium:dev && npm run smoke:chromium:qa && npm run smoke:chromium:stage && npm run smoke:firefox:dev && npm run smoke:firefox:qa && npm run smoke:firefox:stage && npm run smoke:webkit:dev && npm run smoke:webkit:qa && npm run smoke:webkit:stage",
+    "smoke:all:qa": "concurrently \"npm run smoke:chromium:qa\" \"npm run smoke:firefox:qa\" \"npm run smoke:webkit:qa\"",
+    "regression:all": "npm run regression:chromium:dev && npm run regression:chromium:qa && npm run regression:chromium:stage && npm run regression:firefox:dev && npm run regression:firefox:qa && npm run regression:firefox:stage && npm run regression:webkit:dev && npm run regression:webkit:qa && npm run regression:webkit:stage",
+    "smoke-regression:all": "npm run smoke:all && npm run regression:all"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "cross-env": "^7.0.3",
+    "minimist": "^1.2.8"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.7.0",
+    "dotenv": "^16.5.0",
+    "nodemailer": "^6.10.1"
+    }
+}

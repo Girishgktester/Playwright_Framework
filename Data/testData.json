@@ -1,0 +1,16 @@
+{
+    "validUser": {
+      "email": "Testuser@gmail.com",
+      "password": "Test@123"
+    },
+    "invalidUser": {
+      "email": "wronguser@example.com",
+      "password": "wrongpass"
+    },
+
+    "SearchData":{
+      "productSearch":"Build your own computer"
+    }
+
+  }
+  
