@@ -20,31 +20,34 @@ jobs:
         with:
           node-version: '18'
       
-      - name: Install Project Dependencies
-        run: npm install
+      - name: Install Dependencies
+        run: npm ci
+      
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
       
       - name: Install Global Dependencies
-        run: npm install -g concurrently cross-env
+        run: npm install -g cross-env
       
-      - name: Install Local Dependencies
-        run: npm install concurrently cross-env --save-dev
+      - name: List Project Files
+        run: ls -la
+        
+      - name: Check Playwright installation
+        run: npx playwright --version
       
       - name: Run Smoke Tests on QA
-        run: npx cross-env ENV=qa BROWSER=chromium TAG=smoke npm run test && 
-             npx cross-env ENV=qa BROWSER=firefox TAG=smoke npm run test && 
-             npx cross-env ENV=qa BROWSER=webkit TAG=smoke npm run test
+        run: |
+          npx cross-env ENV=qa BROWSER=chromium TAG=smoke node test-runner.js
+          npx cross-env ENV=qa BROWSER=firefox TAG=smoke node test-runner.js
+          npx cross-env ENV=qa BROWSER=webkit TAG=smoke node test-runner.js
       
       - name: Run Smoke Regression Tests
         run: |
-          # Run smoke tests first
-          npx cross-env ENV=dev BROWSER=chromium TAG=smoke npm run test
-          npx cross-env ENV=dev BROWSER=firefox TAG=smoke npm run test
-          npx cross-env ENV=dev BROWSER=webkit TAG=smoke npm run test
+          # Run basic smoke tests
+          npx cross-env ENV=dev BROWSER=chromium TAG=smoke node test-runner.js
           
-          # Then run regression tests
-          npx cross-env ENV=dev BROWSER=chromium TAG=regression npm run test
-          npx cross-env ENV=dev BROWSER=firefox TAG=regression npm run test
-          npx cross-env ENV=dev BROWSER=webkit TAG=regression npm run test
+          # Run regression tests
+          npx cross-env ENV=dev BROWSER=chromium TAG=regression node test-runner.js
       
       - name: Upload Playwright Report
         if: always()
