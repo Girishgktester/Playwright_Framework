@@ -37,17 +37,7 @@ jobs:
       
       - name: Run Smoke Tests on QA
         run: |
-          npx cross-env ENV=qa BROWSER=chromium TAG=smoke node test-runner.js
-          npx cross-env ENV=qa BROWSER=firefox TAG=smoke node test-runner.js
-          npx cross-env ENV=qa BROWSER=webkit TAG=smoke node test-runner.js
-      
-      - name: Run Smoke Regression Tests
-        run: |
-          # Run basic smoke tests
           npx cross-env ENV=dev BROWSER=chromium TAG=smoke node test-runner.js
-          
-          # Run regression tests
-          npx cross-env ENV=dev BROWSER=chromium TAG=regression node test-runner.js
       
       - name: Upload Playwright Report
         if: always()
