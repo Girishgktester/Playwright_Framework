@@ -10,28 +10,28 @@ on:
 jobs:
   run-smoke-and-regression-tests:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-
+      
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-
+      
       - name: Install Dependencies
         run: npm install
-
+      
       - name: Run Smoke Tests on QA
         run: npm run smoke:all:qa
-
+      
       - name: Run Smoke Regression Tests
         run: npm run smoke-regression:all
-
+      
       - name: Upload Playwright Report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Updated from v3 to v4
         with:
           name: playwright-report
           path: playwright-report/
